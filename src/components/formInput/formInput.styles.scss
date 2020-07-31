@@ -1,0 +1,8 @@
+.FormInput {
+    .valid {
+        outline: 2px solid #438a5e;
+    }
+    .invalid {
+        outline: 2px solid red;
+    }
+}
