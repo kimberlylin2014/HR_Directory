@@ -5,10 +5,12 @@ import { signUpUserSuccess,
          signInUserSuccess, 
          signInUserFailure,
          signOutUserSuccess,
-         signOutUserFailure 
+         signOutUserFailure,
+         updateProfileFormSuccess,
+         updateProfileFormFailure
         } from './user.actions';
 import { firestore, auth, getCurrentUser } from '../../firebase/firebase.util';
-import userReducer from './user.reducer';
+// import userReducer from './user.reducer';
 
 
 function* createUserProfileDocument(userAuth, email, company) {
@@ -21,18 +23,24 @@ function* createUserProfileDocument(userAuth, email, company) {
         yield userRef.set({
             id: userAuth.uid,
             email,
-            companyId: company.id
+            companyId: company.id,
+            firstTimeLogin: true,
+            img: null,
+            firstName: null,
+            lastName: null,
+            department: null,
+            contactNum: null,
+            jobTitle: null
         })
     }
     return userRef;
 }
 
-function* addEmployeeToCompany(userObj, company) {
+function* addEmployeeToCompany(employeeData, company) {
     try {
+        const {id, email} = employeeData;
         const companyRef = yield firestore.doc(`companies/${company.id}`);
-        const companySnapshot = yield companyRef.get();
-        const {employees} = yield companySnapshot.data();
-        yield companyRef.update("employees", [...employees, {...userObj}])
+        yield companyRef.set({employees: {[id] : {email: email}}}, {merge: true})
     } catch (error) {
         console.log(error)
     }
@@ -43,9 +51,9 @@ function* signUpUser({payload: {email, password, company}}) {
         const {user} = yield auth.createUserWithEmailAndPassword(email, password);
         const userRef = yield createUserProfileDocument(user, email, company);
         const userSnapshot = yield userRef.get();
-        const employee = {...userSnapshot.data()}
-        yield addEmployeeToCompany(employee, company)
-        yield put(signUpUserSuccess(employee))
+        const employeeData = yield userSnapshot.data();
+        yield addEmployeeToCompany(employeeData, company)
+        yield put(signUpUserSuccess(employeeData));
     } catch (error) {
         let message = ''
         if(error.message === "Password should be at least 6 characters") {
@@ -73,7 +81,7 @@ function* isUserAuthenticated() {
         const employee = {...userSnapshot.data()}
         yield put(signInUserSuccess(employee))
     } catch (error) {
-        console.log(error);
+        yield put(signInUserFailure(error.message))
     }
 }
 
@@ -109,11 +117,33 @@ function* onSignInUserStart() {
     yield takeLatest(userActionTypes.SIGNIN_USER_START, signInWithEmail)
 
 }
+
+function* updateUserProfile({payload: {currentUser, profileForm}}) {
+    try {
+        const userRef = yield firestore.doc(`users/${currentUser.id}`);
+        yield userRef.update({
+            firstTimeLogin: false,
+            ...profileForm
+        });
+        const userSnapshot = yield userRef.get()
+        const updatedUser = yield userSnapshot.data();
+        yield put(updateProfileFormSuccess(updatedUser))
+    } catch (error) {
+        yield put(updateProfileFormFailure(error.message))
+    }
+   
+
+}
+
+function* onUpdateProfileFormStart() {
+    yield takeLatest(userActionTypes.UPDATE_PROFILEFORM_START, updateUserProfile)
+}
 function* userSagas() {
     yield all([call(onSignUpUserStart), 
                call(onCheckUserSession), 
                call(onUserSignOutStart),
-               call(onSignInUserStart)
+               call(onSignInUserStart),
+               call(onUpdateProfileFormStart)
             ])
 }
 

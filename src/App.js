@@ -12,29 +12,41 @@ import { checkUserSession } from './redux/user/user.actions';
 import { connect } from 'react-redux';
 import { selectCurrentUser } from './redux/user/user.selectors';
 import { createStructuredSelector } from 'reselect';
-
+import Header from './components/header/header.component'
 
 class App extends React.Component {
   componentDidMount() {
+    console.log('mounting')
     const { checkUserSession} = this.props;
     checkUserSession();
     
   }
   render() {
     const { currentUser } = this.props;
+    console.log(currentUser);
+    console.log('rendering app')
     return (
-      <Switch>
-        <Route exact path='/' component={LandingPage}/>
-        <Route exact path='/signIn' render={() => {
-          return currentUser ?<Redirect to='/homePage' /> : <SignInPage />
-        }}/>
-        <Route exact path='/signUp' render={() => {
-          return currentUser ?<Redirect to='/homePage' /> : <SignUpPage />
-        }}/>
-        <Route exact path='/homePage' render={() => {
-           return currentUser ? <HomePage /> : <Redirect to='/'/>
-        }} />
-      </Switch>
+      <div>
+        <Header />
+        <Switch>
+          <Route exact path='/' render={() => {
+              return currentUser ? <Redirect to='/homePage'/> : <LandingPage />
+            }}/>
+          <Route exact path='/signIn' render={() => {
+            return currentUser ? <Redirect to='/homePage' /> : <SignInPage />
+          }}/>
+          <Route exact path='/signUp' render={() => {
+            return currentUser ? <Redirect to='/homePage' /> : <SignUpPage />
+          }}/>
+          <Route strict exact path='/homePage' render={() => {
+            return currentUser ? <HomePage /> : <Redirect to='/'/>
+          }} />
+          <Route  path='' render={() => {
+           return <h1>404 Not Found</h1>
+          }} />
+        </Switch>
+      </div>
+      
     )
   }
 }

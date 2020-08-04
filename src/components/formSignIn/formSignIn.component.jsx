@@ -37,7 +37,8 @@ class FormSignIn extends React.Component {
         signInUserStart({email, password, company});
     }
     render() {
-        const { history, revealErrorMessage } = this.props
+        console.log('rendering form sign in')
+        const { revealErrorMessage } = this.props
         return(
             <div className='FormSignIn'>
                 <Form>         

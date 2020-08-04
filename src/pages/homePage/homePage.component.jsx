@@ -1,23 +1,15 @@
 import React from 'react';
-import { signOutUserStart } from '../../redux/user/user.actions';
-import { connect } from 'react-redux';
-import { Button } from 'reactstrap';
+import './homePage.styles.scss';
+import UserProfile from '../../components/userProfile/userProfile.component'
 
-const HomePage = ({signOutUserStart}) => {
-    return (
-        <div>
-            <h1>
-                Secret Page
-                <Button onClick={() => signOutUserStart()}>SignOut</Button>
-             </h1>
+const HomePage = () => {
+    console.log('homepage')
+    return(
+        <div className='HomePage'>
+            <UserProfile />
         </div>
     )
 }
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-        signOutUserStart: () => dispatch(signOutUserStart())
-    }
-}
 
-export default connect(null, mapDispatchToProps)(HomePage);
+export default HomePage;

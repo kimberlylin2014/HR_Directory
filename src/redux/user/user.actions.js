@@ -66,3 +66,26 @@ export const signOutUserFailure = (error) => {
         payload: error
     }
 }
+
+
+export const updateProfileFormStart = (currentUser) => {
+    return {
+        type: userActionTypes.UPDATE_PROFILEFORM_START,
+        payload: currentUser
+    }
+}
+
+export const updateProfileFormSuccess = (updatedUser) => {
+    return {
+        type: userActionTypes.UPDATE_PROFILEFORM_SUCCESS,
+        payload: updatedUser
+    }
+}
+
+export const updateProfileFormFailure = (error) => {
+    return {
+        type: userActionTypes.UPDATE_PROFILEFORM_FAILURE,
+        payload: error
+    }
+}
+

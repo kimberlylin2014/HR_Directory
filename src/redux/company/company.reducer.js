@@ -11,7 +11,7 @@ const companyReducer = (state = INITIAL_STATE, action) => {
         case companyActionTypes.GET_COMPANY_DATA_START:
             return {
                 ...state,
-                isLoading: false
+                isLoading: true
             }
         case companyActionTypes.GET_COMPANY_DATA_SUCCESS:
             return {

@@ -23,6 +23,7 @@ const firebaseConfig = {
   export const getCurrentUser = () => {
     return new Promise((resolve, reject) => {
       const unsubscribe = auth.onAuthStateChanged(userAuth => {
+        console.log('listening from firebase')
         unsubscribe();
         resolve(userAuth);
       }, reject);

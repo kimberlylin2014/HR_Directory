@@ -1,11 +1,11 @@
 import React from 'react';
 import './signInPage.styles.scss';
-import FormSignIn from '../../components/formSignIn/formSignIn.component'
+import FormSignInContainer from '../../components/formSignIn/formSignIn.container';
 
 const SignInPage = () => {
     return(
         <div className='SignInPage'>
-            <FormSignIn />
+            <FormSignInContainer />
         </div>
     )
 }

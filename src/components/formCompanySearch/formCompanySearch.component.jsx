@@ -7,7 +7,7 @@ import { getCompanyDataStart } from '../../redux/company/company.actions';
 import FormError from '../formError/formError.component';
 import { createStructuredSelector } from 'reselect';
 import { selectCompanyError, selectCurrentCompany } from '../../redux/company/company.selectors';
-import { withRouter, Link } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
 class FormCompanySearch extends React.Component {
     constructor(props) {

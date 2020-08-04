@@ -6,7 +6,7 @@ const FormInput = ({label, name, type, value, onChange, validColor, invalidColor
     return(
         <div className='FormInput'>
             <FormGroup>
-                <Label for={label}>{label}</Label>
+                <Label for={name}>{label}</Label>
                 <Input type={type} name={name} id={name} onChange={onChange} value={value} className={`${validColor} ${invalidColor}`}/>
             </FormGroup>
         </div>

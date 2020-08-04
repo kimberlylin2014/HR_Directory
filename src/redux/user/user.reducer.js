@@ -17,6 +17,7 @@ const userReducer = (state = INITIAL_STATE, action) => {
             }
         case userActionTypes.SIGNUP_USER_SUCCESS:
         case userActionTypes.SIGNIN_USER_SUCCESS:
+        case userActionTypes.UPDATE_PROFILEFORM_SUCCESS:
             return {
                 ...state,
                 isLoading: false,
@@ -33,6 +34,7 @@ const userReducer = (state = INITIAL_STATE, action) => {
         case userActionTypes.SIGNUP_USER_FAILURE:
         case userActionTypes.SIGNIN_USER_FAILURE:
         case userActionTypes.SIGNOUT_USER_FAILURE:
+        case userActionTypes.UPDATE_PROFILEFORM_FAILURE:
             return {
                 ...state,
                 isLoading: false,
