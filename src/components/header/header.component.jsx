@@ -6,7 +6,6 @@ import {
   Nav,
   NavItem,
   NavLink,
-  NavbarText,
   NavbarBrand
 } from 'reactstrap';
 import { selectCurrentCompany } from '../../redux/company/company.selectors';
@@ -15,8 +14,9 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { selectCurrentUser } from '../../redux/user/user.selectors';
 import { signOutUserStart } from '../../redux/user/user.actions';
+import { getCompanyEmployeeStart } from '../../redux/company/company.actions'
 
-const Header = ({currentCompany, currentUser, signOutUserStart}) => {
+const Header = ({currentCompany, currentUser, signOutUserStart, getCompanyEmployeeStart, history}) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggle = () => setIsOpen(!isOpen);
@@ -30,7 +30,15 @@ const Header = ({currentCompany, currentUser, signOutUserStart}) => {
             <Collapse isOpen={isOpen} navbar>
                 <Nav className="ml-auto" navbar>
                     <NavItem>
-                        {currentUser ? <NavLink onClick={()=> signOutUserStart()}>Log Out</NavLink> : ''}
+                        {currentUser ? <NavLink onClick={
+                          ()=> {
+                            getCompanyEmployeeStart(currentCompany)
+                            history.push('/employees')
+                          }   
+                        }>Employees</NavLink> : ''}
+                    </NavItem>
+                    <NavItem>
+                        {currentUser ? <NavLink onClick={signOutUserStart}>Log Out</NavLink> : ''}
                     </NavItem>
                 </Nav>
             </Collapse>
@@ -47,7 +55,8 @@ const mapStateToProps = createStructuredSelector({
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        signOutUserStart: () => dispatch(signOutUserStart())
+        signOutUserStart: () => dispatch(signOutUserStart()),
+        getCompanyEmployeeStart: (currentCompany) => dispatch(getCompanyEmployeeStart(currentCompany))
     }
 }
 

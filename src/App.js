@@ -7,6 +7,7 @@ import LandingPage from './pages/landingPage/landingPage.component';
 import SignInPage from './pages/signInPage/signInPage.component';
 import SignUpPage from './pages/signUpPage/signUpPage.component';
 import HomePage from './pages/homePage/homePage.component';
+import EmployeesPage from './pages/employeesPage/employeesPage.component'
 
 import { checkUserSession } from './redux/user/user.actions';
 import { connect } from 'react-redux';
@@ -40,6 +41,9 @@ class App extends React.Component {
           }}/>
           <Route strict exact path='/homePage' render={() => {
             return currentUser ? <HomePage /> : <Redirect to='/'/>
+          }} />
+          <Route strict exact path='/employees' render={() => {
+            return currentUser ? <EmployeesPage /> : <Redirect to='/'/>
           }} />
           <Route  path='' render={() => {
            return <h1>404 Not Found</h1>

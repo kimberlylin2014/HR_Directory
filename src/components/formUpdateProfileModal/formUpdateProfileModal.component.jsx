@@ -8,6 +8,7 @@ import { connect } from 'react-redux';
 import  {selectCurrentUser, selectUserFirstTimeLogIn} from '../../redux/user/user.selectors';
 import { createStructuredSelector } from 'reselect';
 
+
 class FormUpdateProfileModal extends React.Component {
     constructor(props) {
         super(props);
@@ -21,7 +22,6 @@ class FormUpdateProfileModal extends React.Component {
         }
         this.handleOnChange = this.handleOnChange.bind(this);
         this.handleFormSubmit = this.handleFormSubmit.bind(this);
-        // this.handleFileChange = this.handleOnChange.bind(this);
     }
     handleOnChange(e) {
         const {name, value} = e.target;
@@ -29,9 +29,6 @@ class FormUpdateProfileModal extends React.Component {
             [name]: value
         });
     }
-    // handleFileChange(e) {
-        
-    // }
     handleFormSubmit(e) {
         e.preventDefault();
         const { currentUser, updateProfileFormStart, toggle } = this.props;   

@@ -9,9 +9,8 @@ import { signUpUserSuccess,
          updateProfileFormSuccess,
          updateProfileFormFailure
         } from './user.actions';
+import { updateCompanyStart } from '../company/company.actions';
 import { firestore, auth, getCurrentUser } from '../../firebase/firebase.util';
-// import userReducer from './user.reducer';
-
 
 function* createUserProfileDocument(userAuth, email, company) {
     if(!userAuth){
@@ -128,16 +127,17 @@ function* updateUserProfile({payload: {currentUser, profileForm}}) {
         const userSnapshot = yield userRef.get()
         const updatedUser = yield userSnapshot.data();
         yield put(updateProfileFormSuccess(updatedUser))
+        yield put(updateCompanyStart(updatedUser))
     } catch (error) {
         yield put(updateProfileFormFailure(error.message))
     }
-   
 
 }
 
 function* onUpdateProfileFormStart() {
     yield takeLatest(userActionTypes.UPDATE_PROFILEFORM_START, updateUserProfile)
 }
+
 function* userSagas() {
     yield all([call(onSignUpUserStart), 
                call(onCheckUserSession), 

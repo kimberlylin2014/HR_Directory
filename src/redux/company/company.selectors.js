@@ -17,3 +17,8 @@ export const selectCompanyError = createSelector(
     (company) => company.errorMessage
 )
 
+export const selectCompanyEmployees = createSelector(
+    [companySelector],
+    (company) => company.employees
+)
+

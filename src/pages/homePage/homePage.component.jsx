@@ -1,6 +1,9 @@
 import React from 'react';
 import './homePage.styles.scss';
-import UserProfile from '../../components/userProfile/userProfile.component'
+import UserProfile from '../../components/userProfile/userProfile.component';
+
+
+
 
 const HomePage = () => {
     console.log('homepage')
