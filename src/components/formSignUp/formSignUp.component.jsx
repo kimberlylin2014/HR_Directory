@@ -8,6 +8,7 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { selectErrorMessage } from '../../redux/user/user.selectors';
 import { selectCurrentCompany } from '../../redux/company/company.selectors';
+import { Link } from 'react-router-dom'
 
 class FormSignUp extends React.Component {
     constructor(props) {
@@ -50,6 +51,7 @@ class FormSignUp extends React.Component {
         return(
             <div className='FormSignUp'>
                 <Form>
+                    <h2 className='text-center'>Sign Up</h2>
                     <FormInput 
                         label='Email'
                         name='email'
@@ -74,6 +76,7 @@ class FormSignUp extends React.Component {
                     <FormError message={this.state.hideError ? '' : 'Passwords do not match' }/>
                     <FormError message={revealErrorMessage ? revealErrorMessage : '' }/>
                     <Button color="secondary" onClick={this.handleSubmitSignUp}>Sign Up</Button>
+                    <Link to='/signIn'>Already A Member?</Link>
                  </Form>
             </div>   
         )

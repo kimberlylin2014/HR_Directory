@@ -8,8 +8,10 @@ import UserProfileModal from '../../components/userProfileModal/userProfileModal
 import { selectCurrentUser } from '../../redux/user/user.selectors'
 
 const UserProfile = ({firstTimer, currentUser}) => {
-    const {firstName, lastName, jobTitle, department, img} = currentUser;
-    console.log('User Profile')
+    let {firstName, lastName, jobTitle, department, imageURL} = currentUser;
+    if(imageURL === '') {
+        imageURL = 'https://image.flaticon.com/icons/svg/929/929422.svg'
+    }
     let modalStateBoolean;
     if(firstTimer) {
         modalStateBoolean = true;
@@ -21,7 +23,7 @@ const UserProfile = ({firstTimer, currentUser}) => {
             
             <div className='d-flex'>
                 <div className='text-center'>
-                    <img src="https://image.flaticon.com/icons/svg/3237/3237472.svg" width='80px'alt=""/>
+                    <img src={`${imageURL}`} width='120px'  alt=""/>
                     <UserProfileModal modalState={modalStateBoolean} buttonLabel='Edit' />
                 </div>
                 <div className='profile-details'>

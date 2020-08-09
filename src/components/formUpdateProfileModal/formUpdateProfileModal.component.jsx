@@ -8,6 +8,8 @@ import { connect } from 'react-redux';
 import  {selectCurrentUser, selectUserFirstTimeLogIn} from '../../redux/user/user.selectors';
 import { createStructuredSelector } from 'reselect';
 
+import FileUploader from 'react-firebase-file-uploader';
+import firebase from 'firebase';
 
 class FormUpdateProfileModal extends React.Component {
     constructor(props) {
@@ -15,13 +17,16 @@ class FormUpdateProfileModal extends React.Component {
         this.state = {
             firstName: props.currentUser.firstName ? props.currentUser.firstName : "",
             lastName: props.currentUser.lastName ? props.currentUser.lastName : "",
-            img: props.currentUser.img ? props.currentUser.img : "",
+            image: props.currentUser.image ? props.currentUser.image : "",
+            imageURL: props.currentUser.imageURL ? props.currentUser.imageURL : "",
             department: props.currentUser.department ? props.currentUser.department : 'Engineering',
-            contactNum: props.currentUser.contactNum ? props.currentUser.contactNum : "",
-            jobTitle: props.currentUser.jobTitle ? props.currentUser.jobTitle : ""
+            jobTitle: props.currentUser.jobTitle ? props.currentUser.jobTitle : "",
+            progress: 0
         }
         this.handleOnChange = this.handleOnChange.bind(this);
         this.handleFormSubmit = this.handleFormSubmit.bind(this);
+        this.handleUploadStart = this.handleUploadStart.bind(this);
+        this.handleUploadSuccess = this.handleUploadSuccess.bind(this);
     }
     handleOnChange(e) {
         const {name, value} = e.target;
@@ -32,8 +37,21 @@ class FormUpdateProfileModal extends React.Component {
     handleFormSubmit(e) {
         e.preventDefault();
         const { currentUser, updateProfileFormStart, toggle } = this.props;   
-        updateProfileFormStart({currentUser, profileForm: this.state})
+        updateProfileFormStart({currentUser, profileForm: this.state});
         toggle();
+    }
+    handleUploadStart() {
+        this.setState({
+            progress: 0
+        })
+    }
+    handleUploadSuccess(file) {
+        this.setState({
+            image: file,
+            progress: 100
+        });
+        firebase.storage().ref('profiles').child(file).getDownloadURL()
+            .then(url => this.setState({imageURL: url}))
     }
     render() {
         const { firstTimer } = this.props;
@@ -70,21 +88,22 @@ class FormUpdateProfileModal extends React.Component {
                        value={this.state.jobTitle}
                        onChange={this.handleOnChange}
                     />
-                    <FormInput 
-                       label='Contact Number'
-                       name='contactNum'
-                       type='number'
-                       value={this.state.contactNum}
-                       onChange={this.handleOnChange}
-                    />
-                    <FormInput 
-                       label='Profile Picture'
-                       name='img'
-                       type='file'
-                       value={this.state.img}
-                       onChange={this.handleOnChange}
-                    />
-                    <Button onClick={this.handleFormSubmit}>
+                    <label
+                        style={{backgroundColor: 'steelblue', color: 'white', padding: 5, borderRadius: 4, cursor: 'pointer'}}  
+                    >
+                        Upload Photo
+                        <FileUploader 
+                            hidden
+                            accept="image/*"
+                            name='img'
+                            title='foo'
+                            storageRef={firebase.storage().ref('profiles')}
+                            onUploadStart={this.handleUploadStart}
+                            onUploadSuccess={this.handleUploadSuccess}
+                        />
+                    </label>
+                    <p id='progress'>Completion Status: {this.state.progress}%</p>
+                    <Button onClick={this.handleFormSubmit} >
                         {firstTimer ? 'Complete' : "Update"}
                     </ Button>
                 </Form>

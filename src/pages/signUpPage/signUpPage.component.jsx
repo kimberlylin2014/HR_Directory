@@ -5,6 +5,7 @@ import FormSignUpContainer from '../../components/formSignUp/formSignUp.containe
 const SignUpPage = () => {
     return(
         <div className='SignUpPage'>
+            
             <FormSignUpContainer />
         </div>
     )

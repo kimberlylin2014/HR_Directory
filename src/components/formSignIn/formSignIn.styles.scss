@@ -1,13 +1,32 @@
 .FormSignIn {
     form{
-        width: 50%;
-        margin: 0 auto;
-        margin-top: 10%;
-
+        width: 90%;
+        margin: 50px auto;
+        .buttons  {
+            display: flex;
+            flex-wrap: wrap;
+            button {
+                margin: 7px;
+            }
+        }
+        .buttons a {
+            font-size: 16px;
+            font-weight: 400;
+            margin: 10px;
+        }
+       
+    }
+    @media screen and (min-width: 768px) {
+        form {
+            width: 30%;
+            margin: 0 auto;
+        }
         .buttons a {
             font-size: 19px;
             font-weight: 600;
             margin-left: 20px;
         }
+
+
     }
 }

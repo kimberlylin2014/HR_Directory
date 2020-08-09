@@ -1,68 +1,37 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# HR_Directory
 
-## Available Scripts
+### Video Demo
+https://youtu.be/WEjfjz200ic
 
-In the project directory, you can run:
+### Frontend 
+* Javascript
+* React-Redux
+* Redux Saga
+* React-Router
+* Reselect 
+* Redux Persist
+* Sass
 
-### `npm start`
+### Backend
+* Authentication and database from Firebase
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### Website Features
+* This application allows employees to have access to their company directory data.
+* Users first need to search for the company, then they have the option to sign in or sign up.
+* When an user signs in, the application will check if the user has authorization. If user is not listed in the company's directory, the user will be denied access.
+* If user is a new employee, he/she will sign up for a new account and be added to the database.
+* If it's the user's first time logging in, the app will ask user to complete a Profile Information Form. 
+* Users are able to edit their Profile Information Form at any time. 
+* User may upload photo files from the local computer.
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+### Focus
+* Build resuable/clean components with React-Redux and handle the backend with Firebase and Redux-Saga.
+* Memoize functions with the Reselect Library.
+* Implement React Router to navigate through different pages of the website without page refresh.
+* Redux Persist is utilized to save the state of the current user and company whenever the page refreshes.
+* Data Association.
 
-### `npm test`
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+### Resources
+* This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+* Image Icons made by Freepik (https://www.flaticon.com/authors/freepik) from https://www.flaticon.com

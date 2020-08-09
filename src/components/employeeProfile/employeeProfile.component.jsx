@@ -1,21 +1,28 @@
 import React from 'react';
 import './employeeProfile.styles.scss';
-
-const EmployeeProfile = ({ employee: {firstName, lastName, jobTitle, department, email}, currentUser}) => {
+import UserProfileModal from '../../components/userProfileModal/userProfileModal.component';
+import { selectCurrentUser } from '../../redux/user/user.selectors';
+import { connect } from 'react-redux';
+import { createStructuredSelector} from 'reselect';
+const EmployeeProfile = ({ employee: {firstName, lastName, jobTitle, department, email, imageURL}, currentUser, user}) => {
     return (
         <div className='EmployeeProfile'>
             <div>
-                <h4>{firstName} {lastName}</h4>
-                <p>{jobTitle}</p>
-                <p>{department}</p>
-                <p>{email}</p>
-                {currentUser ? <p>EDIT</p> : ''}
+                <h4>{user ? currentUser.firstName : firstName} {user ? currentUser.lastName : lastName}</h4>
+                <p>{user ? currentUser.jobTitle: jobTitle}</p>
+                <p>{user ? currentUser.department : department}</p>
+                <p>{user ? currentUser.email : email}</p>
+                {user ? <UserProfileModal modalState={false} buttonLabel='Edit' /> : ''}
             </div>
             <div>
-                <img src="https://image.flaticon.com/icons/svg/3237/3237472.svg" width='80px'/>
+                <img src={`${user ? currentUser.imageURL : imageURL}`} width='120px'/>
             </div>
         </div>
+    
     )
 }
 
-export default EmployeeProfile;
+const mapStateToProps = createStructuredSelector({
+    currentUser: selectCurrentUser
+})
+export default connect(mapStateToProps)(EmployeeProfile);

@@ -7,17 +7,18 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import {selectCurrentUser} from '../../redux/user/user.selectors';
 
+
 const EmployeeList = ({companyEmployees, currentUser}) => {
     return(
         <div className='EmployeeList'>
             <h3>Employee Directory</h3>
-            {companyEmployees.map(employee => {
+            {companyEmployees ? companyEmployees.map(employee => {
                 console.log(employee)
                 if(currentUser.id === employee.id) {
-                    return <EmployeeProfile key={employee.id} employee={employee} currentUser={true}/>
+                    return <EmployeeProfile key={employee.id} employee={employee} user={true}/>
                 }
-                return <EmployeeProfile key={employee.id} employee={employee} currentUser={false}/>
-            })}
+                return <EmployeeProfile key={employee.id} employee={employee} user={false}/>
+            }): ''}
         </div>
     )
 }

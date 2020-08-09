@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import './header.styles.scss';
 import {
   Collapse,
   Navbar,
@@ -6,7 +7,8 @@ import {
   Nav,
   NavItem,
   NavLink,
-  NavbarBrand
+  NavbarBrand,
+  NavbarText
 } from 'reactstrap';
 import { selectCurrentCompany } from '../../redux/company/company.selectors';
 import { createStructuredSelector } from 'reselect';
@@ -22,13 +24,23 @@ const Header = ({currentCompany, currentUser, signOutUserStart, getCompanyEmploy
   const toggle = () => setIsOpen(!isOpen);
 
   return (
-    <div>
+    <div className='Header'>
       <Navbar color="light" light expand="md" >
         <div className='container'>
-            <NavbarBrand>{currentCompany ? currentCompany.companyName : 'MyColleagues Inc.'}</NavbarBrand>
+            <NavbarBrand>{currentCompany ? <img src={`${currentCompany.imgURL}`} width='45px' alt="company"/>  : (
+                <img src="https://image.flaticon.com/icons/svg/469/469367.svg" width='50px' alt="company"/> 
+            )}</NavbarBrand>
+            <NavbarText>{currentCompany ? currentCompany.companyName : 'HR_DIRECTORY'}</NavbarText>
             <NavbarToggler onClick={toggle} />
             <Collapse isOpen={isOpen} navbar>
                 <Nav className="ml-auto" navbar>
+                    <NavItem>
+                        {currentUser ? <NavLink onClick={
+                          ()=> {
+                            history.push('/homePage')
+                          }   
+                        }>Profile</NavLink> : ''}
+                    </NavItem>
                     <NavItem>
                         {currentUser ? <NavLink onClick={
                           ()=> {

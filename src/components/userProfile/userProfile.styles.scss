@@ -1,10 +1,15 @@
 
 .UserProfile {
-    width: 60%;
+    width: 40%;
+    min-width: 450px;
     margin: 0 auto;
     background-color: white;
     padding: 30px;
-    border-radius: 25px;
+    // border-radius: 25px;
+    box-shadow: 0 1px 1px rgba(0,0,0,0.15), 
+    0 2px 2px rgba(0,0,0,0.15), 
+    0 4px 4px rgba(0,0,0,0.15), 
+    0 8px 8px rgba(0,0,0,0.15);
 
     h5 {
         margin-bottom: 20px;
@@ -23,4 +28,5 @@
         }
 
     }
+
 }

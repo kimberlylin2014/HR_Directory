@@ -9,6 +9,8 @@ import { createStructuredSelector} from 'reselect';
 import { selectCurrentCompany } from '../../redux/company/company.selectors';
 import { selectErrorMessage } from '../../redux/user/user.selectors';
 import FormError from '../formError/formError.component';
+import { signOutUserStart} from '../../redux/user/user.actions'
+import { withRouter } from 'react-router-dom';
 
 class FormSignIn extends React.Component {
     constructor(props){
@@ -38,7 +40,7 @@ class FormSignIn extends React.Component {
     }
     render() {
         console.log('rendering form sign in')
-        const { revealErrorMessage } = this.props
+        const { revealErrorMessage, history, signOutUserStart } = this.props
         return(
             <div className='FormSignIn'>
                 <Form>         
@@ -60,6 +62,10 @@ class FormSignIn extends React.Component {
                     <FormError message={revealErrorMessage ? revealErrorMessage : '' }/>
                     <div className='d-flex align-items-center buttons'>
                         <Button onClick={this.handleSignInSubmit}>Sign In</Button>
+                        <Button onClick={() => {
+                            history.push('/');
+                            signOutUserStart();
+                        }}>Change Company</Button>
                         <Link to='/signUp'>New Employee?</Link>
                     </div>
                 </Form>
@@ -70,7 +76,8 @@ class FormSignIn extends React.Component {
 
 const mapDisptachToProps = (dispatch) => {
     return {
-        signInUserStart: (credentials) => dispatch(signInUserStart(credentials))
+        signInUserStart: (credentials) => dispatch(signInUserStart(credentials)),
+        signOutUserStart: () => dispatch(signOutUserStart())
     }
 }
 
@@ -79,4 +86,4 @@ const mapStateToProps = createStructuredSelector({
     company: selectCurrentCompany
 })
 
-export default connect(mapStateToProps, mapDisptachToProps)(FormSignIn);
+export default withRouter(connect(mapStateToProps, mapDisptachToProps)(FormSignIn));

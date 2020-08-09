@@ -3,7 +3,7 @@ import './App.css';
 import {Switch, Route, Redirect} from 'react-router-dom';
 
 // Pages
-import LandingPage from './pages/landingPage/landingPage.component';
+import LandingPageContainer from './pages/landingPage/landingPage.container';
 import SignInPage from './pages/signInPage/signInPage.component';
 import SignUpPage from './pages/signUpPage/signUpPage.component';
 import HomePage from './pages/homePage/homePage.component';
@@ -13,7 +13,8 @@ import { checkUserSession } from './redux/user/user.actions';
 import { connect } from 'react-redux';
 import { selectCurrentUser } from './redux/user/user.selectors';
 import { createStructuredSelector } from 'reselect';
-import Header from './components/header/header.component'
+import Header from './components/header/header.component';
+import Footer from './components/footer/footer.component';
 
 class App extends React.Component {
   componentDidMount() {
@@ -31,7 +32,7 @@ class App extends React.Component {
         <Header />
         <Switch>
           <Route exact path='/' render={() => {
-              return currentUser ? <Redirect to='/homePage'/> : <LandingPage />
+              return currentUser ? <Redirect to='/homePage'/> : <LandingPageContainer />
             }}/>
           <Route exact path='/signIn' render={() => {
             return currentUser ? <Redirect to='/homePage' /> : <SignInPage />
@@ -39,16 +40,17 @@ class App extends React.Component {
           <Route exact path='/signUp' render={() => {
             return currentUser ? <Redirect to='/homePage' /> : <SignUpPage />
           }}/>
-          <Route strict exact path='/homePage' render={() => {
+          <Route exact path='/homePage' render={() => {
             return currentUser ? <HomePage /> : <Redirect to='/'/>
           }} />
-          <Route strict exact path='/employees' render={() => {
+          <Route exact path='/employees' render={() => {
             return currentUser ? <EmployeesPage /> : <Redirect to='/'/>
           }} />
           <Route  path='' render={() => {
            return <h1>404 Not Found</h1>
           }} />
         </Switch>
+        <Footer />
       </div>
       
     )

@@ -33,7 +33,7 @@ class FormCompanySearch extends React.Component {
             <div className='FormCompanySearch'>
                 <Form>
                     <FormInput 
-                        label='Company Name'
+                        label={currentCompany ? 'Verified': 'My Company'}
                         name='companyName'
                         type='text'
                         value={currentCompany ? currentCompany.companyName : this.state.companyName}

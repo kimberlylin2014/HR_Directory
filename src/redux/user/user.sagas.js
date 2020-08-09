@@ -24,11 +24,11 @@ function* createUserProfileDocument(userAuth, email, company) {
             email,
             companyId: company.id,
             firstTimeLogin: true,
-            img: null,
+            image: null,
+            imageURL: null,
             firstName: null,
             lastName: null,
             department: null,
-            contactNum: null,
             jobTitle: null
         })
     }
@@ -103,12 +103,17 @@ function* onUserSignOutStart() {
 function* signInWithEmail({payload: {email, password, company}}) {
     try {
         const {user} = yield auth.signInWithEmailAndPassword(email, password);
-        const userRef = yield createUserProfileDocument(user, email, company);
-        const userSnapshot = yield userRef.get();
-        const employee = {...userSnapshot.data()}
-        yield put(signInUserSuccess(employee))
+        console.log(company)
+        if(company.employees[user.uid]) {
+            const userRef = yield createUserProfileDocument(user, email, company);
+            const userSnapshot = yield userRef.get();
+            const employee = {...userSnapshot.data()}
+            yield put(signInUserSuccess(employee))
+        } else {
+            yield put(signInUserFailure('User Does Not Exist'))
+        }
     } catch (error) {
-        yield put(signInUserFailure(error.message))
+        yield put(signInUserFailure('User Does Not Exist'))
     }
 }
 
